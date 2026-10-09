@@ -35,7 +35,10 @@ def create_app() -> FastAPI:
         # Atividade 1: valide título e capacidade, gere um ID e guarde o
         # evento em `events`. A resposta deve conter id, title, date e capacity.
         # Os testes mostram os casos de sucesso e de entrada inválida.
-        raise HTTPException(status_code=501, detail="Cadastro ainda não implementado")
+        event_id = max(events, default=0) + 1
+        event = {"id": event_id, **data.model_dump(mode="json")}
+        events[event_id] = event
+        return event
 
     return app
 
