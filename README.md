@@ -1,6 +1,6 @@
 # Laboratório Full Stack — Trilha
 
-Você vai construir um sistema de eventos ao longo de quatro atividades para casa. Cada atualização acrescenta material ao **mesmo projeto**. A atividade atual é [Checkpoint 01 — Cadastrar eventos pela API](docs/checkpoint-01.md).
+Você vai construir um sistema de eventos ao longo de quatro atividades para casa. Cada atualização acrescenta material ao **mesmo projeto**. A atividade atual é [Checkpoint 03 — Integrar API e banco](docs/checkpoint-03.md).
 
 ## O que precisa instalar
 
@@ -9,7 +9,7 @@ Você vai construir um sistema de eventos ao longo de quatro atividades para cas
 - Git
 - Uma conta no GitHub
 
-Node.js será necessário quando o frontend chegar. Você não precisa configurar banco de dados nesta primeira atividade.
+Node.js será necessário quando o frontend chegar. O SQLite é criado pelo projeto: não há servidor de banco para instalar.
 
 ## Primeiro acesso
 
@@ -47,6 +47,16 @@ uv run --locked python -m uvicorn app.main:app --reload
 
 Abra `http://127.0.0.1:8000/docs` para testar as rotas pelo navegador. Pare o servidor com `Ctrl+C`.
 
+## Banco de exemplo
+
+A partir do checkpoint 2, o projeto inclui um banco SQLite. Depois de completar os modelos, crie os dados de demonstração com:
+
+```bash
+uv run --locked python -m database.seed
+```
+
+O arquivo `events.db` é local e não entra nos commits. O usuário de demonstração tem ID `1`. No checkpoint 3, a API passa a usar esse mesmo arquivo quando você inicia o servidor.
+
 ## Sua rotina em cada checkpoint
 
 1. Leia o documento do checkpoint atual.
@@ -55,8 +65,9 @@ Abra `http://127.0.0.1:8000/docs` para testar as rotas pelo navegador. Pare o se
 4. Faça commit e push na branch `aluno`:
 
 ```bash
-git add app
-git commit -m "Implementa cadastro de eventos"
+git add -A
+git status --short
+git commit -m "Conclui checkpoint"
 git push origin aluno
 ```
 
