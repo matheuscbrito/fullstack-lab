@@ -5,6 +5,9 @@ from datetime import date
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
+from app.database import Base, make_engine
+import app.models  # noqa: F401
+
 
 class EventInput(BaseModel):
     """Dados enviados pelo cliente ao cadastrar um evento."""
@@ -14,9 +17,11 @@ class EventInput(BaseModel):
     capacity: int = Field(gt=0)
 
 
-def create_app() -> FastAPI:
+def create_app(database_url: str = "sqlite://") -> FastAPI:
     """Cria uma API com dados isolados para cada execução ou teste."""
     app = FastAPI(title="Eventos do Trilha")
+    app.state.engine = make_engine(database_url)
+    Base.metadata.create_all(app.state.engine)
     events: dict[int, dict] = {}
 
     @app.get("/events")
@@ -43,4 +48,4 @@ def create_app() -> FastAPI:
     return app
 
 
-app = create_app()
+app = create_app("sqlite:///events.db")
